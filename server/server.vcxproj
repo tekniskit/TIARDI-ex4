@@ -80,6 +80,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
     <ClInclude Include="CprNumber.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="PatientInformationService.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
     <ClCompile Include="CprNumber.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientInformationService.cpp" />

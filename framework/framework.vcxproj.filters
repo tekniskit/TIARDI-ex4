@@ -72,6 +72,12 @@
     <ClInclude Include="SynchronousEventDemultiplexerStub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IAcceptor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IConnector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemuxTable.cpp">

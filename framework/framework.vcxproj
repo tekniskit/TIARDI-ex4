@@ -80,6 +80,8 @@
     <ClInclude Include="Handle.h" />
     <ClInclude Include="HandleSock.h" />
     <ClInclude Include="HandleStub.h" />
+    <ClInclude Include="IAcceptor.h" />
+    <ClInclude Include="IConnector.h" />
     <ClInclude Include="INET_Addr.h" />
     <ClInclude Include="IReactor.h" />
     <ClInclude Include="NetworkEvent.h" />
