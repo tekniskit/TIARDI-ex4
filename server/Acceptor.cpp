@@ -3,10 +3,14 @@
 Acceptor::Acceptor(){
 }
 
+Acceptor::Acceptor(int port, IReactor* reactor){
+
+}
+
 Acceptor::~Acceptor(){
 }
 
-void Acceptor::handleEvent(){
+void Acceptor::handleEvent(Handle* handle){
 
 }
 void Acceptor::accept(){
