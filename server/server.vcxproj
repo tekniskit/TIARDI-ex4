@@ -79,10 +79,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CprNumber.h" />
+    <ClInclude Include="Patient.h" />
+    <ClInclude Include="PatientInformationService.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CprNumber.cpp" />
+    <ClCompile Include="Patient.cpp" />
+    <ClCompile Include="PatientInformationService.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
