@@ -1,16 +1,12 @@
 #pragma once
 
-#include <string>
-#include <vector>
 #include "Patient.h"
+#include "CprNumber.h"
 
 using namespace std;
 
-class PatientService
+class PatientInformationService
 {
 public:
-	Patient getPatient(string cprNumber);
-
-private:
-	vector<Patient> search(string cprNumber);
+	Patient getPatient(CprNumber cprNumber);
 };
