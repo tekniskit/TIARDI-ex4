@@ -1,15 +1,22 @@
 #include "CprNumber.h"
 
+CprNumber::CprNumber()
+{
+	
+}
+
 CprNumber::CprNumber(string cprNumber)
 {
-	cprNumberRegex_ = regex("^[0-9]{6}-[0-9]{4}");
-
 	setCprNumber(cprNumber);
 }
 
 void CprNumber::setCprNumber(string cprNumber) {
-	if (regex_match(cprNumber, cprNumberRegex_))
+	regex rgx("^[0-9]{6}-[0-9]{4}$");
+
+	if (regex_match(cprNumber, rgx))
 		cprNumber_ = cprNumber;
+	else
+		throw exception("Invalid CPR-number");
 }
 
 string CprNumber::getCprNumber() {
