@@ -24,19 +24,13 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PatientInformationService.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Patient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CprNumber.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Acceptor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PatientDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,16 +41,10 @@
     <ClCompile Include="server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PatientInformationService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Patient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CprNumber.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Acceptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PatientDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
