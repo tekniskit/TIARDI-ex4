@@ -1,29 +1,22 @@
 // server.cpp : Defines the entry point for the console application.
 //
-
-#include <iostream>
-
 #include "stdafx.h"
-#include "CprNumber.h"
-#include "PatientDatabase.h"
+#include <iostream>
+#include "Acceptor.h"
+#include "Reactor.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	PatientDatabase service;
+	// Initialize concrete acceptors to listen for // connections on their well-known ports.
+	Reactor reactor;
+	Acceptor acceptor(5500, (IReactor*)&reactor);
+	// Event loop that accepts connection request
+	// events and processes data from a gateway.
+	for (;;){
+		reactor.handleEvents();
+	}
 
-	CprNumber cpr = CprNumber("123456-7890");
-	cout << service.getPatient(cpr) << endl;
 
-	cpr.setCprNumber("234567-8901");
-	cout << service.getPatient(cpr) << endl;
-
-	cpr.setCprNumber("345678-9012");
-	cout << service.getPatient(cpr) << endl;
-
-	cpr.setCprNumber("456789-0123");
-	cout << service.getPatient(cpr) << endl;
-	
-	getchar();
 
 	return 0;
 }
