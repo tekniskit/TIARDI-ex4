@@ -5,11 +5,11 @@
 
 #include "stdafx.h"
 #include "CprNumber.h"
-#include "PatientInformationService.h"
+#include "PatientDatabase.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	PatientInformationService service;
+	PatientDatabase service;
 
 	CprNumber cpr = CprNumber("123456-7890");
 	cout << service.getPatient(cpr) << endl;
