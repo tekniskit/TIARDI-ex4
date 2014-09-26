@@ -1,4 +1,4 @@
-#include "PatientInformationService.h"
+#include "PatientDatabase.h"
 #include <fstream>
 
 void Tokenize(const string& str, vector<string>& tokens, const string& delimiters = " ") {
@@ -13,7 +13,7 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 	}
 }
 
-Patient PatientInformationService::getPatient(CprNumber cprNumber) {
+Patient PatientDatabase::getPatient(CprNumber cprNumber) {
 	ifstream infile("patients.txt");
 
 	string line;

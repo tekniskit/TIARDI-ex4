@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class PatientInformationService
+class PatientDatabase
 {
 public:
 	Patient getPatient(CprNumber cprNumber);
