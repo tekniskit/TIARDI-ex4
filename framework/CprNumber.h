@@ -8,12 +8,12 @@ using namespace std;
 class CprNumber
 {
 public:
+	CprNumber();
 	CprNumber(string cprNumber);
 	void setCprNumber(string cprNumber);
 	string getCprNumber();
 
 private:
 	string cprNumber_;
-	regex cprNumberRegex_;
 };
 
