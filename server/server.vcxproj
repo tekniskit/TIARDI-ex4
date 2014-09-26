@@ -81,8 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Acceptor.h" />
-    <ClInclude Include="CprNumber.h" />
-    <ClInclude Include="Patient.h" />
     <ClInclude Include="PatientInformationService.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -90,8 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Acceptor.cpp" />
-    <ClCompile Include="CprNumber.cpp" />
-    <ClCompile Include="Patient.cpp" />
     <ClCompile Include="PatientInformationService.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="stdafx.cpp" />
