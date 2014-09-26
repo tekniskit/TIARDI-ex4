@@ -11,7 +11,7 @@ public:
 
 	// connect to a socket; 
 	bool connect(INET_Addr addr);
-
+	SOCKET SOCK_Connector::connectNONBlock(INET_Addr addr);
 	SOCKET getSocket(); 
 
 	bool isRunning = true; 

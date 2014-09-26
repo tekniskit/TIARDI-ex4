@@ -81,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connector.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="PatientEvent.h" />
+    <ClInclude Include="PatientEventHandler.h" />
     <ClInclude Include="PatientService.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -88,8 +91,11 @@
   <ItemGroup>
     <ClCompile Include="client.cpp" />
     <ClCompile Include="Connector.cpp" />
+    <ClCompile Include="PatientEvent.cpp" />
+    <ClCompile Include="PatientEventHandler.cpp" />
     <ClCompile Include="PatientService.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\framework\framework.vcxproj">
