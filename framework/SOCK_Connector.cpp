@@ -24,6 +24,18 @@ SOCKET SOCK_Connector::getSocket()
 	return socket_;
 }
 
+
+SOCKET SOCK_Connector::connectNONBlock(INET_Addr addr)
+{
+	u_long iMode = 1;
+	ioctlsocket(socket_, FIONBIO, &iMode);
+	int iResult = _WINSOCKAPI_::connect(socket_, (SOCKADDR *)& addr.addr_, sizeof(addr.addr_));
+	if (iResult == SOCKET_ERROR) {
+		return socket_;
+	}
+	return SOCKET_ERROR;
+}
+
 bool SOCK_Connector::connect(INET_Addr addr)
 {
 

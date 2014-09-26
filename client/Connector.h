@@ -1,35 +1,25 @@
 #pragma once 
 #include "IConnector.h"
-#include "IReactor.h"
+#include "Reactor.h"
 #include "SOCK_Connector.h"
 
-template < class SERVICE_HANDLER, class ICONNECTOR>
-class Connector : IConnector<SERVICE_HANDLER, ICONNECTOR>
+typedef void(*ConnectFunction) (Handle*);
+
+class Connector:EventHandlerInterface
 {
 
 public:
-	Connector(IReactor *reactor_) 
-	{
-		reactor = reactor_; 
-	}
+	Connector(Reactor *reactor_);
+	~Connector();
 
-	~Connector() 
-	{
-	}
+	void handleEvent(Handle* handle); 
 
-	void handleEvent(Handle* handle)
-	{
-
-	}
-
-	void Connect(SERVICE_HANDLER* SH, const ICONNECTOR)
-	{
-		
-	}
+	void Connect(ConnectFunction sh_, INET_Addr addr);
 
 private:
 	SOCK_Connector sock_connector;
-	IReactor * reactor =  nullptr; 
+	Reactor * reactor =  nullptr; 
+	ConnectFunction sh;
 };
 
 
