@@ -13,12 +13,16 @@ Acceptor::~Acceptor(){
 	delete peer_acceptor_;
 }
 
+SOCK_Acceptor* Acceptor::getPeerAcceptor(){
+	return peer_acceptor_;
+}
+
 void Acceptor::handleEvent(Handle* handle){
 	accept();
 }
 void Acceptor::accept(){
 	SOCK_Stream* stream = new SOCK_Stream();
 	peer_acceptor_->accept(*stream);
-	socketList.push_back(stream);
+	//socketList.push_back(stream);
 	std::cout << "Client connected" << std::endl;
 }

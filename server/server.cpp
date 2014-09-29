@@ -4,12 +4,20 @@
 #include <iostream>
 #include "Acceptor.h"
 #include "Reactor.h"
+#include "INET_Addr.h"
+#include "SynchronousEventDemultiplexerSock.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// Initialize concrete acceptors to listen for // connections on their well-known ports.
 	Reactor reactor;
-	Acceptor acceptor(5500, (IReactor*)&reactor);
+	Acceptor acceptor(5500, (IReactor*)&reactor); // &SOCK_Acceptor
+	
+	SynchronousEventDemultiplexerSock *sock = new SynchronousEventDemultiplexerSock(acceptor.getPeerAcceptor(), &reactor);
+	
+	reactor.setSynchronousEventDemultiplexer(sock);
+	//demux = SynchronousEventDemultiplexerSock(acceptor.getPeerAcceptor());
+	//reactor.setSynchronousEventDemultiplexer() demux
 	// Event loop that accepts connection request
 	// events and processes data from a gateway.
 	for (;;){

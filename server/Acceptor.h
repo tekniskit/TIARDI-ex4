@@ -14,8 +14,9 @@ public:
 	~Acceptor();
 	void handleEvent(Handle* handle);
 	void accept();
+	SOCK_Acceptor* getPeerAcceptor();
+
 private:
-	std::list<SOCK_Stream*> socketList;
 	SOCK_Acceptor* peer_acceptor_;
 	
 };

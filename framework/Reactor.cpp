@@ -28,6 +28,14 @@ void Reactor::handleEvents(Time_Value* time)
 	}
 }
 
+void Reactor::pushStream(SOCK_Stream* stream){
+	socketList_.push_back(stream);
+}
+
+void Reactor::removeStream(SOCK_Stream* stream){
+	socketList_.remove(stream);
+}
+
 Reactor::Reactor()
 {
 

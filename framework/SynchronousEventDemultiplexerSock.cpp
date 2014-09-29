@@ -3,16 +3,15 @@
 #include <iostream>
 #include <WinSock2.h>
 
-SynchronousEventDemultiplexerSock::SynchronousEventDemultiplexerSock(INET_Addr addr, Reactor* reactor)
+SynchronousEventDemultiplexerSock::SynchronousEventDemultiplexerSock(SOCK_Acceptor* acceptor, Reactor* reactor)
 {
-	acceptorPtr = new SOCK_Acceptor(addr);
-	reactor->registerHandler(this, 6);
-	
+	acceptorPtr = acceptor;	
+	reactor_ = reactor;
 }
 
 SynchronousEventDemultiplexerSock::~SynchronousEventDemultiplexerSock()
 {
-	delete acceptorPtr; 
+	
 }
 
 NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
@@ -25,7 +24,7 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 	tv.tv_usec = 500000;
 
 	// to make it work with special sockets 
-	int n = socketList.size() > 0 ? (socketList.back())->get_handle() + 1 : *acceptorPtr->getSocket() + 1;
+	int n = reactor_->getSocketList().size() > 0 ? (reactor_->getSocketList().back())->get_handle() + 1 : *acceptorPtr->getSocket() + 1;
 
 	int rv = select(n, &readfds, &writefds, &Errorfds, &tv);
 
@@ -46,7 +45,7 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 			return Nevent; 
 		}
 
-		for (std::list<SOCK_Stream*>::iterator it = socketList.begin(); it != socketList.end(); it++)
+		for (std::list<SOCK_Stream*>::iterator it = reactor_->getSocketList().begin(); it != reactor_->getSocketList().end(); it++)
 		{
 			SOCK_Stream* value = *it;
 
@@ -104,7 +103,7 @@ void SynchronousEventDemultiplexerSock::prepFdsSet()
 
 	FD_SET(*acceptorPtr->getSocket(), &readfds);
 
-	for (std::list<SOCK_Stream*>::iterator it = socketList.begin(); it != socketList.end(); it++)
+	for (std::list<SOCK_Stream*>::iterator it = reactor_->getSocketList().begin(); it != reactor_->getSocketList().end(); it++)
 	{
 		SOCK_Stream* value = *it;
 		FD_SET(value->get_handle(), &readfds);
@@ -115,17 +114,8 @@ void SynchronousEventDemultiplexerSock::prepFdsSet()
 }
 
 
-// Handle AcceptEvent Events
-void SynchronousEventDemultiplexerSock::handleEvent(Handle* handle)
-{
-	SOCK_Stream* stream = new SOCK_Stream();
-	acceptorPtr->accept(*stream);
-	socketList.push_back(stream);
-	std::cout << "Client connected" << std::endl;
-}
-
 void SynchronousEventDemultiplexerSock::Disconnect(SOCK_Stream* value)
 {
-	socketList.remove(value);
+	reactor_->getSocketList().remove(value);
 	delete value;
 }
