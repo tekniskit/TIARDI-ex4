@@ -10,24 +10,24 @@
 
 using namespace std;
 
-class SynchronousEventDemultiplexerSock : public SynchronousEventDemultiplexerInterface, public EventHandlerInterface  {
+class SynchronousEventDemultiplexerSock : public SynchronousEventDemultiplexerInterface  {
 private:
-	list<SOCK_Stream*> socketList; 
+	//list<SOCK_Stream*> socketList; 
 	SOCK_Acceptor* acceptorPtr;
 
 	fd_set readfds;
 	fd_set writefds;
 	fd_set Errorfds;
 	NetworkHandle handle;
-
+	//Reactor* reactor_;
 	void prepFdsSet();
 	void Disconnect(SOCK_Stream* value);
+	std::list<SOCK_Stream*>* socketList_;
 
 public:
-	SynchronousEventDemultiplexerSock(INET_Addr addr,Reactor* reactor); 
+	SynchronousEventDemultiplexerSock(SOCK_Acceptor* acceptor, std::list<SOCK_Stream*>* socketList);
 	~SynchronousEventDemultiplexerSock();
 	NetworkEvent getNetworkEvent();
-	void handleEvent(Handle* handle);
-	
+	void handleEvent(Handle* handle);	
 	
 };

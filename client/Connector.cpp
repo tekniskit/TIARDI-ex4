@@ -4,8 +4,8 @@
 void Connector::Connect(ConnectFunction sh_, INET_Addr addr)
 {
 	sh = sh_; 
-	
-	SOCKET Socket = sock_connector.connectNONBlock(addr);
+	sock_connector.connect(addr);
+	SOCKET Socket = sock_connector.getSocket();
 	SOCK_Stream *stream = new SOCK_Stream();
 	stream->set_handle(Socket);
 	SynchronousEventDemultiplexerClient* client = new SynchronousEventDemultiplexerClient(stream);

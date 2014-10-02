@@ -5,6 +5,7 @@
 #include "SOCK_Stream.h"
 #include <list>
 #include <iostream>
+#include "SynchronousEventDemultiplexerSock.h"
 
 class Acceptor : public IAcceptor
 {
@@ -14,8 +15,8 @@ public:
 	~Acceptor();
 	void handleEvent(Handle* handle);
 	void accept();
+	//SOCK_Acceptor* getPeerAcceptor();
 private:
-	std::list<SOCK_Stream*> socketList;
 	SOCK_Acceptor* peer_acceptor_;
-	
+	std::list<SOCK_Stream*> socketList_;
 };

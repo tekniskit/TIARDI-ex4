@@ -22,11 +22,11 @@ int _tmain(int argc, _TCHAR* argv[])
 {	
 	Reactor reactor; 
 	
-	INET_Addr addr(5000, inet_addr("127.0.0.1"));
+	INET_Addr addr(5500, 0x7F000001); //  inet_addr("127.0.0.1")
 
 	Connector connector(&reactor);
 	connector.Connect(ConnectedFunction, addr);
-	Controller controller = Controller(&reactor);
+	controller = Controller(&reactor);
 
 	while (true)
 	{
