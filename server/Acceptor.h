@@ -18,5 +18,5 @@ public:
 	//SOCK_Acceptor* getPeerAcceptor();
 private:
 	SOCK_Acceptor* peer_acceptor_;
-	std::list<SOCK_Stream*>* socketList_;
+	std::list<SOCK_Stream*> socketList_;
 };
