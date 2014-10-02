@@ -12,6 +12,7 @@ SynchronousEventDemultiplexerSock::SynchronousEventDemultiplexerSock(SOCK_Accept
 SynchronousEventDemultiplexerSock::~SynchronousEventDemultiplexerSock()
 {
 	
+	delete acceptorPtr; 
 }
 
 NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
@@ -44,50 +45,51 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 			std::cout << "Client connect event" << std::endl;
 			return Nevent; 
 		}
-
+		try{
 		for (std::list<SOCK_Stream*>::iterator it = socketList_->begin(); it != socketList_->end(); it++)
-		{
-			SOCK_Stream* value = *it;
+			{
+				SOCK_Stream* value = *it;
 
-			//Create Read Events
-			if (FD_ISSET(value->get_handle(), &readfds)) {
-				// can be disconnect 
-				// can be data 
-				try
-				{
-					char networkdata[100]; 
-					int resived = value->recv(networkdata, 100, 0);
-					if (resived == 0)
-					{
-						Disconnect(value);
-					}
-					else
-					{
-						std::cout << "Networkdata: " << networkdata << std::endl;
-						char ev = networkdata[0]; 
-						handle = NetworkHandle(value);
-						Nevent.setEventType(ev-48);
-						std::string data(networkdata + 1, resived-1);
-						handle.setData(data);
-						Nevent.setHandle((Handle*)&handle); 
+				//Create Read Events
+				if (FD_ISSET(value->get_handle(), &readfds)) {
+					// can be disconnect 
+					// can be data 
+				
+						char networkdata[100]; 
+						int resived = value->recv(networkdata, 100, 0);
+						if (resived == 0)
+						{
+							Disconnect(value);
+						}
+						else
+						{
+							std::cout << "Networkdata: " << networkdata << std::endl;
+							char ev = networkdata[0]; 
+							handle = NetworkHandle(value);
+							Nevent.setEventType(ev-48);
+							std::string data(networkdata + 1, resived-1);
+							handle.setData(data);
+							Nevent.setHandle((Handle*)&handle); 
 						
-						return Nevent; 
-					}
-				}
-				catch (exception e)
-				{
-					Disconnect(value);
+							return Nevent; 
+						}
+				
+
 				}
 
-			}
 
-			//Create write Event 
-			if (FD_ISSET(value->get_handle(), &writefds)) {
-				handle = NetworkHandle(value);
-				Nevent.setEventType(4);
-				Nevent.setHandle((Handle*)&handle);
-				return Nevent;
+				//Create write Event 
+				if (FD_ISSET(value->get_handle(), &writefds)) {
+					handle = NetworkHandle(value);
+					Nevent.setEventType(4);
+					Nevent.setHandle((Handle*)&handle);
+					return Nevent;
+				}
 			}
+		}
+		catch (exception e)
+		{
+			//Disconnect(value);
 		}
 	}
 

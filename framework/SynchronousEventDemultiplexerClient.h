@@ -11,4 +11,5 @@ public:
 private:		
 	SOCK_Stream *stream_; 
 	NetworkHandle handle;
+	bool isOpen = false;
 };

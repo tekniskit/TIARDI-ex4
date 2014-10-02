@@ -5,29 +5,35 @@
 #include <iostream>
 
 #include "stdafx.h"
-#include "CprNumber.h"
-#include "PatientService.h"
+#include "Controller.h"
+
 
 using namespace std;
 
-int _tmain(int argc, _TCHAR* argv[])
+Controller controller; 
+
+void ConnectedFunction(Handle* stream)
 {
-	PatientService patientService;
+	controller.ConnectedFunction(stream);
+}
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{	
+	Reactor reactor; 
 	
-	for (;;) {
-		cout << "Enter CPR-number: ";
+	INET_Addr addr(5500, 0x7F000001); //  inet_addr("127.0.0.1")
 
-		string input;
-		cin >> input;
+	Connector connector(&reactor);
+	connector.Connect(ConnectedFunction, addr);
+	controller = Controller(&reactor);
 
-		try {
-			CprNumber cpr(input);
-			cout << patientService.getPatient(cpr) << endl;
-		}
-		catch (exception e) {
-			cout << e.what() << endl;
-		}
+	while (true)
+	{
+		reactor.handleEvents(); 
 	}
-		
+
+
 	return 0;
 }
+
