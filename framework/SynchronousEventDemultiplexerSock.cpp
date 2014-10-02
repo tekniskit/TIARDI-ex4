@@ -3,10 +3,10 @@
 #include <iostream>
 #include <WinSock2.h>
 
-SynchronousEventDemultiplexerSock::SynchronousEventDemultiplexerSock(SOCK_Acceptor* acceptor, Reactor* reactor)
+SynchronousEventDemultiplexerSock::SynchronousEventDemultiplexerSock(SOCK_Acceptor* acceptor, std::list<SOCK_Stream*>* socketList)
 {
-	acceptorPtr = acceptor;	
-	reactor_ = reactor;
+	acceptorPtr = acceptor;
+	socketList_ = socketList;
 }
 
 SynchronousEventDemultiplexerSock::~SynchronousEventDemultiplexerSock()
@@ -24,7 +24,7 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 	tv.tv_usec = 500000;
 
 	// to make it work with special sockets 
-	int n = reactor_->getSocketList().size() > 0 ? (reactor_->getSocketList().back())->get_handle() + 1 : *acceptorPtr->getSocket() + 1;
+	int n = socketList_->size() > 0 ? (socketList_->back())->get_handle() + 1 : *acceptorPtr->getSocket() + 1;
 
 	int rv = select(n, &readfds, &writefds, &Errorfds, &tv);
 
@@ -45,7 +45,7 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 			return Nevent; 
 		}
 
-		for (std::list<SOCK_Stream*>::iterator it = reactor_->getSocketList().begin(); it != reactor_->getSocketList().end(); it++)
+		for (std::list<SOCK_Stream*>::iterator it = socketList_->begin(); it != socketList_->end(); it++)
 		{
 			SOCK_Stream* value = *it;
 
@@ -103,7 +103,7 @@ void SynchronousEventDemultiplexerSock::prepFdsSet()
 
 	FD_SET(*acceptorPtr->getSocket(), &readfds);
 
-	for (std::list<SOCK_Stream*>::iterator it = reactor_->getSocketList().begin(); it != reactor_->getSocketList().end(); it++)
+	for (std::list<SOCK_Stream*>::iterator it = socketList_->begin(); it != socketList_->end(); it++)
 	{
 		SOCK_Stream* value = *it;
 		FD_SET(value->get_handle(), &readfds);
@@ -116,6 +116,6 @@ void SynchronousEventDemultiplexerSock::prepFdsSet()
 
 void SynchronousEventDemultiplexerSock::Disconnect(SOCK_Stream* value)
 {
-	reactor_->getSocketList().remove(value);
+	socketList_->remove(value);
 	delete value;
 }

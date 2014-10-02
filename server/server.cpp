@@ -13,9 +13,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	Reactor reactor;
 	Acceptor acceptor(5500, (IReactor*)&reactor); // &SOCK_Acceptor
 	
-	SynchronousEventDemultiplexerSock *sock = new SynchronousEventDemultiplexerSock(acceptor.getPeerAcceptor(), &reactor);
 	
-	reactor.setSynchronousEventDemultiplexer(sock);
 	//demux = SynchronousEventDemultiplexerSock(acceptor.getPeerAcceptor());
 	//reactor.setSynchronousEventDemultiplexer() demux
 	// Event loop that accepts connection request

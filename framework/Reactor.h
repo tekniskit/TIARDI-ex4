@@ -15,7 +15,6 @@ public:
 	void setSynchronousEventDemultiplexer(SynchronousEventDemultiplexerInterface*);
 	void pushStream(SOCK_Stream* stream);
 	void removeStream(SOCK_Stream* stream);
-	list<SOCK_Stream*> getSocketList();
 	Reactor(SynchronousEventDemultiplexerInterface* _demultiplexer);
 	Reactor();
 
@@ -24,5 +23,4 @@ private:
 
 	SynchronousEventDemultiplexerInterface* demultiplexer; 
 	DemuxTable handlerTabel;
-	std::list<SOCK_Stream*> socketList_;
 };
