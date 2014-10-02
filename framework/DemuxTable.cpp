@@ -20,7 +20,12 @@ EventHandlerInterface* DemuxTable::getHandler(unsigned int eventType){
 	}
 }
 void DemuxTable::addHandler(unsigned int eventType, EventHandlerInterface* EventHandlerInterface){
-	table_.insert(std::make_pair(eventType, EventHandlerInterface));
+	if (table_.count(eventType))
+	{
+		table_[eventType] = EventHandlerInterface;
+	}
+	else
+		table_.insert(std::make_pair(eventType, EventHandlerInterface));
 }
 
 void DemuxTable::removeHandler(unsigned int eventType){

@@ -10,6 +10,7 @@ class Patient
 public:
 	Patient(CprNumber cprNumber, string name, string address);
 	friend ostream& operator<<(ostream& os, const Patient& dt);
+	string getPatientEvent();
 
 private:
 	CprNumber cprNumber_;

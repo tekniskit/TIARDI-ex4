@@ -13,3 +13,7 @@ ostream& operator<<(ostream& stream, const Patient& patient)
 	stream << patient.name_ << "\t\t" << patient.address_;
 	return stream;
 }
+
+string Patient::getPatientEvent(){
+	return "3;" + name_ + ";" + address_;
+}

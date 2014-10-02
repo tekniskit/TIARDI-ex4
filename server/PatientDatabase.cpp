@@ -19,7 +19,8 @@ Patient PatientDatabase::getPatient(CprNumber cprNumber) {
 	string line;
 	while (getline(infile, line))
 	{
-		if (line.find(cprNumber.getCprNumber()) == string::npos) continue;
+		string matchString = line.substr(0,11);
+		if (strcmp(cprNumber.getCprNumber().c_str(), matchString.c_str())) continue;
 
 		vector<string> raw;
 
