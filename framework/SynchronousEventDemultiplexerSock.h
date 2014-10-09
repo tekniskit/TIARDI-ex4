@@ -23,6 +23,7 @@ private:
 	void prepFdsSet();
 	void Disconnect(SOCK_Stream* value);
 	std::list<SOCK_Stream*>* socketList_;
+	std::list<SOCK_Stream*>::iterator it;
 
 public:
 	SynchronousEventDemultiplexerSock(SOCK_Acceptor* acceptor, std::list<SOCK_Stream*>* socketList);

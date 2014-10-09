@@ -7,6 +7,7 @@ SynchronousEventDemultiplexerSock::SynchronousEventDemultiplexerSock(SOCK_Accept
 {
 	acceptorPtr = acceptor;
 	socketList_ = socketList;
+	it = socketList_->begin();
 }
 
 SynchronousEventDemultiplexerSock::~SynchronousEventDemultiplexerSock()
@@ -46,7 +47,7 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 			return Nevent; 
 		}
 		try{
-		for (std::list<SOCK_Stream*>::iterator it = socketList_->begin(); it != socketList_->end(); it++)
+			for (; it != socketList_->end(); it++)
 			{
 				SOCK_Stream* value = *it;
 
@@ -70,7 +71,7 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 							std::string data(networkdata + 1, resived-1);
 							handle.setData(data);
 							Nevent.setHandle((Handle*)&handle); 
-						
+							it++;
 							return Nevent; 
 						}
 				
@@ -83,9 +84,11 @@ NetworkEvent SynchronousEventDemultiplexerSock::getNetworkEvent()
 					handle = NetworkHandle(value);
 					Nevent.setEventType(4);
 					Nevent.setHandle((Handle*)&handle);
+					it++;
 					return Nevent;
 				}
 			}
+			it = socketList_->begin();
 		}
 		catch (exception e)
 		{
